@@ -36,93 +36,147 @@ class _LogInPageState extends State<LogInPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          "assets/images/geek_synergy_logo.jpg",
-                          width: 90,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: const [
-                            Text(
-                              "GEEK-SYNERGY",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
+                    logoWidget(),
                     const SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      children: const [
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Text(
-                          " Sign In",
-                          style: TextStyle(
-                              fontSize: 27, fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: const [
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "Welcome to Geek Synergy sign in \nwith Your details",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400),
-                        )
-                      ],
-                    ),
+                    signInCurveWidget(),
                     buildName(),
                     buildPassword(),
-                    ElevatedButton(
-                        child: const Text('SIGN IN'),
-                        onPressed: () {
-                          getDetails();
-                        }),
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            const Text("Don't have a account?"),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SignUpPage()));
-                                },
-                                child: const Text(
-                                  "SIGN UP",
-                                  style: TextStyle(
-                                      color: Colors.pink, fontSize: 20),
-                                ))
-                          ],
-                        )
-                      ],
-                    )
+                    signInButtonWidget(),
+                    signUpWidget(),
                   ])))),
+    );
+  }
+
+  Widget logoWidget(){
+    return  Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/images/geek_synergy_logo.jpg",
+              width: 90,
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              children: const [
+                Text(
+                  "GEEK-SYNERGY",
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            )
+          ],
+        ),
+      ],
+    );
+
+  }
+
+  Widget signInCurveWidget(){
+    return Column(
+      children: [
+        Row(
+          children: const [
+            SizedBox(
+              width: 15,
+            ),
+            Text(
+              " Sign In",
+              style: TextStyle(
+                  fontSize: 27, fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: const [
+            SizedBox(
+              width: 20,
+            ),
+            Text(
+              "Welcome to Geek Synergy sign in \nwith Your details",
+              style: TextStyle(
+                  fontSize: 18, fontWeight: FontWeight.w400),
+            )
+          ],
+        ),
+      ],
+    );
+  }
+
+
+  Widget buildName() => buildTitle(
+    child: Padding(
+      padding: const EdgeInsets.all(16),
+      child: TextField(
+        controller: _username,
+        obscureText: false,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'UserName',
+          hintText: 'Enter Your name',
+        ),
+      ),
+    ),
+  );
+  Widget buildPassword() => buildTitle(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: TextFormField(
+            controller: _password,
+            obscureText: true,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Password',
+              hintText: 'Enter Password',
+            ),
+          ),
+        ),
+      );
+
+  Widget signInButtonWidget(){
+    return ElevatedButton(
+        child: const Text('SIGN IN'),
+        onPressed: () {
+          getDetails();
+        });
+  }
+  Widget signUpWidget(){
+    return Row(
+      children: [
+        const SizedBox(
+          width: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            const Text("Don't have a account?"),
+            const SizedBox(
+              width: 20,
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                      const SignUpPage()));
+                },
+                child: const Text(
+                  "SIGN UP",
+                  style: TextStyle(
+                      color: Colors.pink, fontSize: 20),
+                ))
+          ],
+        )
+      ],
     );
   }
 
@@ -146,34 +200,7 @@ class _LogInPageState extends State<LogInPage> {
     }
   }
 
-  Widget buildPassword() => buildTitle(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: TextFormField(
-            controller: _password,
-            obscureText: true,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Password',
-              hintText: 'Enter Password',
-            ),
-          ),
-        ),
-      );
-  Widget buildName() => buildTitle(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: TextField(
-            controller: _username,
-            obscureText: false,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'UserName',
-              hintText: 'Enter Your name',
-            ),
-          ),
-        ),
-      );
+
   void showInSnackBar(String value) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(value),

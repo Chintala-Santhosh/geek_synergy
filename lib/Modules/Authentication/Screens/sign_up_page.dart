@@ -56,12 +56,6 @@ class _SignUpPageState extends State<SignUpPage> {
     ]))));
   }
 
-  void setDetails(username, password, email) async {
-    final SharedPreferences userDetails = await SharedPreferences.getInstance();
-    userDetails.setString("username", username);
-    userDetails.setString("password", password);
-    userDetails.setString("email", email);
-  }
 
   Widget logoWidget() {
     return Column(
@@ -275,4 +269,12 @@ class _SignUpPageState extends State<SignUpPage> {
           child,
         ],
       );
+
+  void setDetails(username, password, email) async {
+    final SharedPreferences userDetails = await SharedPreferences.getInstance();
+    userDetails.setString("username", username);
+    userDetails.setString("password", password);
+    userDetails.setString("email", email);
+  }
+
 }
